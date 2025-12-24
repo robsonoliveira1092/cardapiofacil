@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
-import { useAuth } from '../context/AuthContext'; // Ajuste o caminho se necessário
+import { useAuth } from '../context/AuthContext';
 
 const LoginScreen = () => {
     const [email, setEmail] = useState('');
@@ -13,30 +13,16 @@ const LoginScreen = () => {
             Alert.alert("Erro", "Preencha todos os campos.");
             return;
         }
-
         setLoading(true);
         try {
-            // .trim() remove espaços e .toLowerCase() evita erro com letras maiúsculas
             const cleanEmail = email.trim().toLowerCase();
             await login(cleanEmail, password);
-            
-            // Se o login for sucesso, o AuthContext mudará o estado do usuário
-            // e o AppNavigator te levará automaticamente para a tela correta.
         } catch (error) {
-            console.log("Código do erro:", error.code);
-            
             let message = "E-mail ou senha incorretos.";
-            
-            if (error.code === 'auth/user-not-found') {
-                message = "Este e-mail não está cadastrado.";
-            } else if (error.code === 'auth/wrong-password') {
-                message = "Senha incorreta.";
-            } else if (error.code === 'auth/invalid-credential') {
-                message = "Credenciais inválidas. Verifique os dados.";
-            } else if (error.code === 'auth/too-many-requests') {
-                message = "Muitas tentativas falhas. Tente novamente mais tarde.";
-            }
-
+            if (error.code === 'auth/user-not-found') message = "Este e-mail não está cadastrado.";
+            else if (error.code === 'auth/wrong-password') message = "Senha incorreta.";
+            else if (error.code === 'auth/invalid-credential') message = "Credenciais inválidas.";
+            else if (error.code === 'auth/too-many-requests') message = "Muitas tentativas. Tente mais tarde.";
             Alert.alert("Falha no Login", message);
         } finally {
             setLoading(false);
@@ -46,7 +32,6 @@ const LoginScreen = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Cardápio App</Text>
-            
             <TextInput 
                 style={styles.input} 
                 placeholder="E-mail" 
@@ -55,7 +40,6 @@ const LoginScreen = () => {
                 autoCapitalize="none"
                 keyboardType="email-address"
             />
-            
             <TextInput 
                 style={styles.input} 
                 placeholder="Senha" 
@@ -63,9 +47,12 @@ const LoginScreen = () => {
                 onChangeText={setPassword}
                 secureTextEntry
             />
-
             <TouchableOpacity style={styles.button} onPress={handleLogin} disabled={loading}>
-                {loading ? <ActivityIndicator color="#FFF" /> : <Text style={styles.buttonText}>ENTRAR</Text>}
+                {loading ? (
+                    <ActivityIndicator color="#FFF" />
+                ) : (
+                    <Text style={styles.buttonText}>ENTRAR</Text>
+                )}
             </TouchableOpacity>
         </View>
     );
