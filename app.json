@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "Pizzaria Delícia",
+    "slug": "pizzaria-delicia-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    
+    "icon": "./assets/app-icon.png",  
+    "userInterfaceStyle": "automatic",
+    
+    "splash": {
+      "image": "./assets/splash-screen.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#FFFFFF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.restauranteficticio.pizzariadelicia" 
+    },
+    
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/app-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.restauranteficticio.pizzariadelicia" 
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}
