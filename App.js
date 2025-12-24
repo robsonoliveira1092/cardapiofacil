@@ -7,16 +7,14 @@ import AuthNavigator from './navigation/AuthNavigator';
 
 const RootContent = () => {
   const { user, loading } = useAuth();
-
   if (loading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#FFF' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color="#FF5733" />
       </View>
     );
   }
-
-  // A lógica abaixo evita renderizar qualquer string se o user for null
+  // Removido qualquer espaço ou caractere entre os navegadores
   return user ? <AdminNavigator /> : <AuthNavigator />;
 };
 
